@@ -212,6 +212,15 @@ resource "aws_instance" "media_web_2" {
     Name = "media_web_2"
     Project = "mediawiki"
   }
+    root_block_device {
+    volume_size           = 50
+    delete_on_termination = "true"
+    encrypted             = "true"
+  }
+  volume_tags = {
+    Name       = "MEDIAWIKI-WEB-SERVER"
+  }
+
 }
 
 
