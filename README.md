@@ -1,7 +1,7 @@
 # mediawiki
 ## Mediawiki implemntation using Terraform
 ### Architechture Diagram 
-![Alt text](./files/mediawiki.jpeg?raw=true "Mediawiki implementation on AWS using Terraform")
+![Alt text](./files/mediawikiarch.jpeg?raw=true "Mediawiki implementation on AWS using Terraform")
 ### Prerequisites:
 
 - AWS account with access keys and secret access key generated for same
