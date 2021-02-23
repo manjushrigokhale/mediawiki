@@ -4,4 +4,6 @@ public_key_path     = "/home/cloud_user/.ssh/mediawiki.pub"
 web_instance_type   = "t2.micro"
 db_instance_type    = "t2.micro"
 aws_profile         = "mediawiki"
-user_data           = "file("./files/user-data.sh")"
+user_data           = "file(/files/user-data.sh)"
+
+
