@@ -223,7 +223,7 @@ resource "aws_elb" "media_elb" {
   name = "media-elb"
   subnets = [aws_subnet.public_1.id, aws_subnet.public_2.id]
   instances = [aws_instance.media_web_1.id, aws_instance.media_web_2.id]
-  security_groups = [aws_securitygroup.sg_public.id]
+  security_groups = [aws_security_group.sg_public.id]
 
   listener {
     instance_port     = 80
