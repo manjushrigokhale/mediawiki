@@ -1,23 +1,9 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 3.0"
-    }
-  }
-}
-#cloud provider#
-provider "aws" {
-  region = "us-east-1"
-  profile = "mediawiki"
-}
-
 #vpc#
 resource "aws_vpc" "mediawiki" {
   cidr_block = "192.168.0.0/16"
   enable_dns_hostnames = true  
   tags = {
-      Name = "mediawiki"
+      Name = "mediawiki-vpc"
   }
 }
 
@@ -59,7 +45,7 @@ resource "aws_internet_gateway" "media_igw" {
   vpc_id ="aws_vpc.mediawiki.id"
   
   tags = {
-      Name = "mediawiki"
+      Name = "mediawiki-igw"
     }
 }
 
