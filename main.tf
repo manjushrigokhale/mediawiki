@@ -172,38 +172,18 @@ resource "aws_security_group" "sg_private" {
       cidr_blocks = ["0.0.0.0/0"]
   }
 }
-resource "aws_eip" "eip" {
-  vpc   = true
-  tags = {
-    Name            = "media-nat-eip"
-  }
-}
 
-resource "aws_nat_gateway" "nat" {
-  allocation_id = aws_eip.eip.id
-  subnet_id     = aws_subnet.public_1.id
+# Elastic IP and NAT#
 
-  tags = {
-    Name            = "media-nat"
-  }
-}
-
-
-resource "aws_route" "private_route_nat" {
-  route_table_id         = aws_route_table.rt_private.id
-  destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.nat.id
-
-}
 #key-pair#
 resource "aws_key_pair" "media_key" {
-  key_name = "var.key_name"
-  public_key = file("files/mediawiki.pub")
+  key_name = "aws_key_pair.key_name"
+  public_key = file("~/.aws/credentials")
 }
 
 #EC2 setup#
 resource "aws_instance" "media_web_1" {
-  ami = "var.ami"
+  ami = "ami-073c8c0760395aab8"
   instance_type = "var.web_instance_type"
   key_name = "aws_key_pair.media_key.id"
   vpc_security_group_ids = ["aws_security_group.sg_public.id"]
@@ -225,7 +205,7 @@ resource "aws_instance" "media_web_1" {
 }
 
 resource "aws_instance" "media_web_2" {
-  ami = "var.ami"
+  ami = "ami-073c8c0760395aab8"
   instance_type = "var.web_instance_type"
   key_name = "aws_key_pair.media_key.id"
   vpc_security_group_ids = ["aws_security_group.sg_public.id"]
@@ -248,7 +228,7 @@ resource "aws_instance" "media_web_2" {
 
 
 resource "aws_instance" "media_db" {
-  ami = "var.ami"
+  ami = "ami-073c8c0760395aab8"
   instance_type = "var.db_instance_type"
   key_name = "aws_key_pair.media_key.id"
   vpc_security_group_ids = ["aws_security_group.sg_private.id"]
@@ -264,7 +244,7 @@ resource "aws_instance" "media_db" {
 resource "aws_elb" "media_elb" {
   name = "media-elb"
   subnets = ["aws_subnet.public_1.id", "aws_subnet.public_2.id"]
-  instances = ["aws_instance.media_web_1.id", "aws_instance.media_web_1.id"]
+  instances = ["aws_instance.media_web_1.id", "aws_instance.media_web_2.id"]
   security_groups = ["aws_securitygroup.sg_public.id"]
 
   listener {
