@@ -159,7 +159,7 @@ resource "aws_security_group" "sg_private" {
 #key-pair#
 resource "aws_key_pair" "media_key" {
   key_name = "mediawiki-key"
-  public_key = file("~/.aws/credentials")
+  public_key = file("files/mediawiki.pub")
 }
 
 #EC2 setup#
