@@ -15,9 +15,9 @@ provider "aws" {
 #vpc#
 resource "aws_vpc" "mediawiki" {
   cidr_block = "192.168.0.0/16"
+  enable_dns_hostnames = true  
   tags = {
       Name = "mediawiki"
-      Project = "mediawiki"
   }
 }
 
@@ -30,7 +30,6 @@ resource "aws_subnet" "public_1" {
   
   tags = { 
       Name = "mediawiki_public_1"
-      Project = "mediawiki"
   }
 }
 
@@ -42,7 +41,6 @@ resource "aws_subnet" "public_2" {
   
   tags = { 
       Name = "mediawiki_public_2"
-      Project = "mediawiki"
   }
 }
 
