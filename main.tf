@@ -198,7 +198,7 @@ resource "aws_route" "private_route_nat" {
 #key-pair#
 resource "aws_key_pair" "media_key" {
   key_name = "var.key_name"
-  public_key = file("/files/mediawiki.pub")
+  public_key = file("files/mediawiki.pub")
 }
 
 #EC2 setup#
