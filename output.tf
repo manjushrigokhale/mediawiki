@@ -1,3 +1,7 @@
+output "public_ip" {
+  description = "instance Ip address"
+  value = aws_instance.media_web_1.public_ip
+}
 output "DB_Host" {
   description = "db instance dns"
   value = "localhost"
