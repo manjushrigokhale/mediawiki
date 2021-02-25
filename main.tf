@@ -11,10 +11,7 @@ provider "aws" {
   region = "us-east-1"
   profile = "mediawiki"
 }
-#availability zone#
-data "aws_availability_zones" "az" {
-  state = "available"  
-}
+
 #vpc#
 resource "aws_vpc" "mediawiki" {
   cidr_block = "192.168.0.0/16"
@@ -27,7 +24,7 @@ resource "aws_vpc" "mediawiki" {
 # Subnets #
 resource "aws_subnet" "public_1" {
   vpc_id = "aws_vpc.mediawiki.id"
-  availability_zone = "data.aws_availability_zones.az.names[0]"
+  availability_zone = "us-east-1a"
   cidr_block = "192.168.0.0/24"
   map_public_ip_on_launch = true
   
@@ -39,7 +36,7 @@ resource "aws_subnet" "public_1" {
 
 resource "aws_subnet" "public_2" {
   vpc_id = "aws_vpc.mediawiki.id"
-  availability_zone = "data.aws_availability_zones.az.names[1]"
+  availability_zone = "us-east-1b"
   cidr_block = "192.168.1.0/24"
   map_public_ip_on_launch = true
   
@@ -51,7 +48,7 @@ resource "aws_subnet" "public_2" {
 
 resource "aws_subnet" "private_1" {
   vpc_id = "aws_vpc.mediawiki.id"
-  availability_zone = "data.aws_availability_zones.az.names[0]"
+  availability_zone = "us-east-1a"
   cidr_block = "192.168.2.0/24"
   
   tags = {
