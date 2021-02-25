@@ -166,7 +166,7 @@ resource "aws_key_pair" "media_key" {
 resource "aws_instance" "media_web_1" {
   ami = "ami-073c8c0760395aab8"
   instance_type = var.web_instance_type
-  key_name = aws_key_pair.mediawiki.id
+  key_name = aws_key_pair.media_key.id
   vpc_security_group_ids = [aws_security_group.sg_public.id]
   subnet_id = aws_subnet.public_1.id
 
