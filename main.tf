@@ -155,6 +155,28 @@ resource "aws_security_group" "sg_private" {
 }
 
 # Elastic IP and NAT#
+resource "aws_eip" "eip" {
+  vpc   = true
+  tags = {
+    Name            = "media-nat-eip"
+  }
+}
+
+resource "aws_nat_gateway" "nat" {
+  allocation_id = aws_eip.eip.id
+  subnet_id     = aws_subnet.public_1.id
+
+  tags = {
+    Name            = "media-nat"
+  }
+}
+
+resource "aws_route" "private_route_nat" {
+  route_table_id         = aws_route_table.rt_private.id
+  destination_cidr_block = "0.0.0.0/0"
+  nat_gateway_id         = aws_nat_gateway.nat.id
+
+}
 
 #key-pair#
 resource "aws_key_pair" "media_key" {
