@@ -185,7 +185,7 @@ resource "aws_instance" "media_web_1" {
 }
 
 resource "aws_instance" "media_web_2" {
-  ami = "ami-073c8c0760395aab8"
+  ami = "ami-096fda3c22c1c990a"
   instance_type = var.web_instance_type
   key_name = aws_key_pair.media_key.id
   vpc_security_group_ids = [aws_security_group.sg_public.id]
@@ -207,7 +207,7 @@ resource "aws_instance" "media_web_2" {
 
 
 resource "aws_instance" "media_db" {
-  ami = "ami-073c8c0760395aab8"
+  ami = "ami-096fda3c22c1c990a"
   instance_type = var.db_instance_type
   key_name = aws_key_pair.media_key.id
   vpc_security_group_ids = [aws_security_group.sg_private.id]
