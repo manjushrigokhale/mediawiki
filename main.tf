@@ -91,7 +91,7 @@ resource "aws_route_table_association" "rta_private_1" {
 resource "aws_security_group" "sg_public" {
   name = "web_access"
   description = "EC2 created under public subnet will have access to ports 80 and 22"
-  vpc_id = aws_vpc.media_vpc.id
+  vpc_id = aws_vpc.mediawiki.id
 
   tags = {
       Name = "sg_public"
@@ -124,7 +124,7 @@ resource "aws_security_group" "sg_public" {
 resource "aws_security_group" "sg_private" {
   name = "database_access"
   description = "EC2 created under public subnet will have access to ports 22 and 3306"
-  vpc_id = aws_vpc.media_vpc.id
+  vpc_id = aws_vpc.mediawiki.id
 
   tags = {
       Name = "sg_private"
@@ -158,7 +158,7 @@ resource "aws_security_group" "sg_private" {
 
 #key-pair#
 resource "aws_key_pair" "media_key" {
-  key_name = aws_key_pair.key_name
+  key_name = aws_key_pair.media_key
   public_key = file("~/.aws/credentials")
 }
 
@@ -166,7 +166,7 @@ resource "aws_key_pair" "media_key" {
 resource "aws_instance" "media_web_1" {
   ami = "ami-073c8c0760395aab8"
   instance_type = var.web_instance_type
-  key_name = aws_key_pair.media_key.id
+  key_name = aws_key_pair.mediawiki.id
   vpc_security_group_ids = [aws_security_group.sg_public.id]
   subnet_id = aws_subnet.public_1.id
 
